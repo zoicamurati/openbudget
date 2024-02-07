@@ -9,6 +9,7 @@ class OpenBudgetController extends Controller
 {
     public function index()
     {
+
         $category = [
             435 => '435-SIGURIME SHOQERORE',
             600 => '600-PAGA, SHPERBLIME DHE TE TJERA SHPENZIME PERSONELI',
@@ -40,17 +41,25 @@ class OpenBudgetController extends Controller
             "000" => 'Borxhi'
         ];
 
-        $parents = DB::table('financial_transactions_2015_copy')
+        $parents = DB::table('financial_transactions_2019')
             ->selectRaw('SUBSTRING(payment_reason_code, 1, 3) AS group_code')
-            ->where('date_executed', 'like', '%2023%')
+            ->where('date_executed', 'like', '2023%')
             ->groupBy(DB::raw('SUBSTRING(payment_reason_code, 1, 3)'))
             ->get();
 
+        $newArray = [];
+
+        $temp_array = [
+            'group_code' => '000',
+            'children' => [],
+            'name' => 'Borxhi',
+        ];
+
         foreach ($parents as $parent) {
 
-            $children = DB::table('financial_transactions_2015_copy')
-                ->selectRaw(' MAX(inst) as name , SUM(transact_value) as value')
-                ->where('date_executed', 'like', '%2023%')
+            $children = DB::table('financial_transactions_2019')
+                ->selectRaw(' MAX(inst) as name , CAST(SUM(transact_value) AS INT) as value')
+                ->where('date_executed', 'like', '2023%')
                 ->where(DB::raw('SUBSTRING(payment_reason_code, 1, 3)'), '=', $parent->group_code)
                 ->groupBy('inst_code')
                 ->get()->toArray();
@@ -67,28 +76,17 @@ class OpenBudgetController extends Controller
             } else {
                 $parent->name = 'Te tjera';
             }
-        }
 
-        // Create a new array
-        $newArray = [];
-
-        $temp_array = [
-            'group_code' => '000',
-            'children' => [],
-            'name' => 'Borxhi',
-        ];
-
-        foreach ($parents as $item) {
-
-            $groupCode = $item->group_code;
+            $groupCode = $parent->group_code;
 
             // Check if the group_code is '000' or null
             if ($groupCode === '000' || $groupCode === null) {
-                $temp_array['children'] = array_merge($item->children, $temp_array['children']);
+                $temp_array['children'] = array_merge($parent->children, $temp_array['children']);
 
             } else {
-                $newArray[] = $item;
+                $newArray[] = $parent;
             }
+
         }
         $newArray[] = $temp_array;
 
@@ -97,6 +95,35 @@ class OpenBudgetController extends Controller
             "children" => $newArray
         ];
         $total_data = $temp;
+
+//        // Create a new array
+//        $newArray = [];
+//
+//        $temp_array = [
+//            'group_code' => '000',
+//            'children' => [],
+//            'name' => 'Borxhi',
+//        ];
+//
+//        foreach ($parents as $item) {
+//
+//            $groupCode = $item->group_code;
+//
+//            // Check if the group_code is '000' or null
+//            if ($groupCode === '000' || $groupCode === null) {
+//                $temp_array['children'] = array_merge($item->children, $temp_array['children']);
+//
+//            } else {
+//                $newArray[] = $item;
+//            }
+//        }
+//        $newArray[] = $temp_array;
+//
+//        $temp[] = (object)[
+//            "name" => 'Shpenzime 2024',
+//            "children" => $newArray
+//        ];
+//        $total_data = $temp;
 
         return view('open_budget')->with(['data' => $total_data]);
     }

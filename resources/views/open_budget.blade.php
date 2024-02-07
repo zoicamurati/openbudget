@@ -100,8 +100,6 @@ console.log(data)
         function processData(data) {
             var treeData = [];
 
-            var smallBrands = {name: "Other", children: []};
-
             am5.object.eachOrdered(
                 data,
                 (brand) => {
