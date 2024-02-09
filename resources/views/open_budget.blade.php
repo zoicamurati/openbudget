@@ -96,7 +96,7 @@
 
 
         let data = {!! json_encode($data) !!};
-console.log(data)
+        console.log(data)
         function processData(data) {
             var treeData = [];
 

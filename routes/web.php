@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'OpenBudgetController@index')->name('index');
+Route::get('/test', 'OpenBudgetController@test')->name('index');
