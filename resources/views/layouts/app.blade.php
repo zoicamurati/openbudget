@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <meta name="description" content="Open Budget u krijua dhe po mirëmbahet nga organizata AIS e njohur si promotore e të dhënave të hapura Open Data Albania.
     Për çdo detaj mbi Akses Drejtësi Albania kontaktoni:info@ais.al">
     <meta name="generator" content="Jekyll v3.8.5">

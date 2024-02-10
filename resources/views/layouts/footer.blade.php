@@ -40,7 +40,7 @@
     <div class="mu-footer-bottom">
         <div class="container">
             <div class="mu-footer-bottom-area">
-                <p>&copy; Copyright 2019 Të gjitha të drejtat e rezervuara nga <a href="http://ais.al/new/"
+                <p>&copy; Copyright 2024 Të gjitha të drejtat e rezervuara nga <a href="http://ais.al/new/"
                         target="_blank"> Albanian Institute of Science</a>
                     <a href="http://twitter.com/AIScience" class="btn btn-sm btn-icon btn-inverse btn-rounded"
                         title="Twitter"><i class="fa fa-twitter-square fa-2x"></i></a>
