@@ -60,7 +60,7 @@ class OpenBudgetController extends Controller
         foreach ($parents as $parent) {
 
             $children = DB::table('financial_transactions_budget_2024')
-                ->selectRaw(' MAX(inst) as name , CAST(SUM(transact_value) AS INT) as value')
+                ->selectRaw(' MAX(inst) as name , CAST(SUM(transact_value) AS SIGNED INTEGER) as value')
 //                ->where('date_executed', 'like', '2023%')
                 ->where('payment_reason_code_sub_3', '=', $parent->group_code)
                 ->groupBy('inst_code')

@@ -3,7 +3,7 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid" style="margin-top:5em;margin-bottom:6em">
+    <div class="container-fluid" style="margin-top:10em;margin-bottom:8em">
         <div>
             <h2 class="text-center">Kerko</h2>
             <div class="container text-left">
